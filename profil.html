@@ -1,0 +1,1814 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#061522">
+    <title>Mon profil | VYBEO</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="profil.css">
+</head>
+
+<style>
+    
+:root {
+    --bg: #061522;
+    --bg-deep: #020b14;
+    --surface: #0b2031;
+    --card: #10283b;
+    --hover: #16364c;
+    --yellow: #ffbd16;
+    --yellow-light: #ffd95b;
+    --white: #f4f7fb;
+    --muted: #a9b8c8;
+    --border: #294054;
+    --green: #52d49a;
+    --red: #ff8080;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--white);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 3px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* BARRE DE NAVIGATION */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    padding: 16px 6%;
+    background: rgba(2, 11, 20, 0.94);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(15px);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 11px;
+    background: var(--yellow);
+    color: var(--bg-deep);
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.brand-dot,
+.yellow-dot {
+    color: var(--yellow);
+}
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.desktop-nav a {
+    padding: 10px 13px;
+    border-radius: 9px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a.active {
+    background: rgba(255, 189, 22, 0.1);
+    color: var(--yellow);
+}
+
+.user-mini {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mini-avatar {
+    display: grid;
+    place-items: center;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--bg-deep);
+    font-weight: 900;
+}
+
+/* CONTENU */
+
+.page-container {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+    padding-top: 38px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.eyebrow {
+    color: var(--yellow);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.page-heading h1 {
+    margin: 6px 0;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.2;
+    letter-spacing: -1.8px;
+}
+
+.page-heading p,
+.section-heading p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.member-badge,
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 189, 22, 0.3);
+    border-radius: 30px;
+    background: rgba(255, 189, 22, 0.08);
+    color: var(--yellow-light);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.panel,
+.profile-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--surface);
+}
+
+.panel {
+    padding: 24px;
+}
+
+/* CARTE PROFIL */
+
+.profile-card {
+    margin-bottom: 23px;
+}
+
+.profile-cover {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    min-height: 130px;
+    overflow: hidden;
+    padding: 22px;
+    background:
+        radial-gradient(circle at 80% 30%, rgba(255, 189, 22, 0.18), transparent 25%),
+        linear-gradient(115deg, #0b2031, #16364c 55%, #0b2031);
+}
+
+.cover-label {
+    z-index: 1;
+    color: rgba(244, 247, 251, 0.65);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.cover-decoration {
+    position: absolute;
+    top: -90px;
+    right: 12%;
+    width: 230px;
+    height: 230px;
+    border: 1px solid rgba(255, 189, 22, 0.25);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(255, 189, 22, 0.025),
+                0 0 0 60px rgba(255, 189, 22, 0.025);
+}
+
+.profile-main {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 26px 20px;
+}
+
+.avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+    margin-top: -42px;
+}
+
+.profile-avatar {
+    display: grid;
+    place-items: center;
+    width: 94px;
+    height: 94px;
+    border: 5px solid var(--surface);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--yellow), #e99800);
+    color: var(--bg-deep);
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.online-indicator {
+    position: absolute;
+    right: 7px;
+    bottom: 8px;
+    width: 13px;
+    height: 13px;
+    border: 2px solid var(--surface);
+    border-radius: 50%;
+    background: var(--green);
+}
+
+.profile-identity {
+    flex: 1;
+    min-width: 0;
+    padding-top: 15px;
+}
+
+.profile-status {
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.profile-identity h2 {
+    margin: 5px 0;
+    font-size: clamp(19px, 3vw, 25px);
+    letter-spacing: -0.7px;
+    overflow-wrap: anywhere;
+}
+
+.username {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.profile-bio {
+    margin: 10px 0 0;
+    color: #d0dae5;
+    font-size: 13px;
+}
+
+.btn-primary,
+.btn-outline {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    min-height: 43px;
+    padding: 11px 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-primary {
+    background: var(--yellow);
+    color: var(--bg-deep);
+}
+
+.btn-primary:hover {
+    background: var(--yellow-light);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border-color: var(--border);
+    background: var(--card);
+    color: var(--white);
+}
+
+.btn-outline:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.profile-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 16px 26px;
+    border-top: 1px solid var(--border);
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.detail-icon {
+    color: var(--yellow);
+}
+
+/* MODIFICATION DU PROFIL */
+
+.edit-panel {
+    margin-bottom: 23px;
+}
+
+.profile-form {
+    display: grid;
+    gap: 17px;
+    margin-top: 20px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* STATISTIQUES */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--surface);
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.stat-icon {
+    display: grid;
+    place-items: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    background: rgba(255, 189, 22, 0.1);
+    color: var(--yellow);
+    font-size: 19px;
+}
+
+.stat-caption {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.stat-card > strong {
+    display: block;
+    font-size: 29px;
+    line-height: 1.3;
+    letter-spacing: -1px;
+}
+
+.stat-card > strong small {
+    color: var(--yellow);
+    font-size: 13px;
+}
+
+.stat-label {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.highlight-stat {
+    border-color: rgba(255, 189, 22, 0.35);
+    background: linear-gradient(145deg, #10283b, #1b3040);
+}
+
+/* COLONNES */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: start;
+    gap: 22px;
+}
+
+.main-column,
+.side-column {
+    display: grid;
+    gap: 22px;
+    min-width: 0;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.section-heading h2 {
+    margin: 6px 0 0;
+    font-size: clamp(20px, 2.5vw, 25px);
+    line-height: 1.3;
+    letter-spacing: -0.8px;
+}
+
+.section-heading p {
+    font-size: 12px;
+}
+
+.heading-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 13px;
+    background: rgba(255, 189, 22, 0.1);
+    color: var(--yellow);
+    font-size: 20px;
+}
+
+/* FORMULAIRES ET UPLOAD VIDEO */
+
+#videoForm {
+    display: grid;
+    gap: 19px;
+}
+
+.upload-zone {
+    display: grid;
+    place-items: center;
+    min-height: 240px;
+    overflow: hidden;
+    border: 1.5px dashed #3b566b;
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255, 189, 22, 0.055), transparent 55%),
+        var(--bg-deep);
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.upload-zone.drag-over {
+    border-color: var(--yellow);
+    background: #10283b;
+}
+
+.upload-placeholder {
+    width: 100%;
+    padding: 28px 15px;
+}
+
+.upload-symbol {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 13px;
+    border: 1px solid rgba(255, 189, 22, 0.35);
+    border-radius: 15px;
+    background: rgba(255, 189, 22, 0.1);
+    color: var(--yellow);
+    font-size: 30px;
+}
+
+.upload-placeholder h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.upload-placeholder p {
+    margin: 7px 0 17px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.file-hint {
+    display: block;
+    margin-top: 14px;
+    color: #8497a9;
+    font-size: 10px;
+}
+
+#videoPreview {
+    display: block;
+    width: 100%;
+    max-height: 420px;
+    background: #000;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.form-group {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    background: var(--bg-deep);
+    color: var(--white);
+    font-size: 12px;
+    transition: border-color 0.2s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #72869a;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--yellow);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group select option {
+    background: var(--bg-deep);
+    color: var(--white);
+}
+
+.upload-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-top: 5px;
+}
+
+#selectedFileInfo {
+    max-width: 55%;
+    color: var(--muted);
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.form-message {
+    min-height: 0;
+    margin: 0;
+    font-size: 12px;
+    color: var(--green);
+}
+
+.form-message:empty {
+    display: none;
+}
+
+.form-message.error {
+    color: var(--red);
+}
+
+/* GALERIE VIDEO */
+
+.videos-heading {
+    align-items: center;
+}
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 30px 15px;
+    border: 1px dashed var(--border);
+    border-radius: 13px;
+    text-align: center;
+}
+
+.empty-icon {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 12px;
+    border-radius: 14px;
+    background: var(--card);
+    color: var(--yellow);
+    font-size: 23px;
+}
+
+.empty-state h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.empty-state p {
+    max-width: 330px;
+    margin: 8px auto 15px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.text-link {
+    color: var(--yellow);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.my-video-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--bg-deep);
+}
+
+.my-video-card video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: contain;
+    background: #000;
+}
+
+.my-video-content {
+    padding: 14px;
+}
+
+.video-category {
+    display: inline-flex;
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: rgba(255, 189, 22, 0.1);
+    color: var(--yellow);
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.my-video-content h3 {
+    margin: 10px 0 5px;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.my-video-content p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.video-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.video-size {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.delete-video {
+    padding: 7px 10px;
+    border: 1px solid rgba(255, 128, 128, 0.4);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.delete-video:hover {
+    background: rgba(255, 128, 128, 0.1);
+}
+
+/* COLONNE LATERALE */
+
+.side-panel-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 23px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.side-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(255, 189, 22, 0.1);
+    color: var(--yellow);
+    font-size: 19px;
+}
+
+.muted-text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.balance-amount {
+    margin: 5px 0 20px;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.balance-amount span {
+    color: var(--yellow);
+    font-size: 12px;
+    letter-spacing: 0;
+}
+
+.balance-divider {
+    height: 1px;
+    margin-bottom: 15px;
+    background: var(--border);
+}
+
+.balance-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.balance-row strong {
+    color: var(--yellow);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.quick-panel {
+    padding-bottom: 10px;
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+    transition: color 0.2s;
+}
+
+.quick-link:hover strong,
+.quick-link:hover .link-arrow {
+    color: var(--yellow);
+}
+
+.quick-link-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--yellow);
+    font-size: 17px;
+}
+
+.quick-link > span:nth-child(2) {
+    display: grid;
+    flex: 1;
+    gap: 3px;
+}
+
+.quick-link strong {
+    font-size: 11px;
+}
+
+.quick-link small {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.link-arrow {
+    color: var(--muted);
+}
+
+.creator-tip {
+    padding: 21px;
+    border: 1px solid rgba(255, 189, 22, 0.25);
+    border-radius: 15px;
+    background: linear-gradient(145deg, #172b36, #0b2031);
+}
+
+.tip-star {
+    color: var(--yellow);
+    font-size: 23px;
+}
+
+.creator-tip h3 {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.creator-tip p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* PIED DE PAGE */
+
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+    padding: 25px 0 35px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.footer-brand {
+    font-size: 17px;
+}
+
+.footer-brand .brand-icon {
+    width: 29px;
+    height: 29px;
+    font-size: 17px;
+}
+
+/* NAVIGATION MOBILE */
+
+.mobile-nav {
+    display: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+    .topbar {
+        padding-right: 4%;
+        padding-left: 4%;
+    }
+
+    .desktop-nav {
+        gap: 0;
+    }
+
+    .desktop-nav a {
+        padding: 9px;
+        font-size: 11px;
+    }
+
+    .content-grid {
+        grid-template-columns: minmax(0, 1fr) 260px;
+        gap: 15px;
+    }
+
+    .panel {
+        padding: 19px;
+    }
+
+    .profile-main {
+        flex-wrap: wrap;
+    }
+
+    .profile-main .btn-outline {
+        margin-left: 115px;
+    }
+}
+
+@media (max-width: 760px) {
+    .topbar {
+        padding: 13px 5%;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .page-container {
+        width: 92%;
+        padding-top: 25px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .side-column {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+    .creator-tip {
+        grid-column: 1 / -1;
+    }
+
+    .profile-main {
+        align-items: flex-start;
+        gap: 12px;
+        padding: 0 18px 18px;
+    }
+
+    .profile-avatar {
+        width: 78px;
+        height: 78px;
+        font-size: 31px;
+    }
+
+    .profile-identity {
+        padding-top: 12px;
+    }
+
+    .profile-main .btn-outline {
+        margin-left: 0;
+    }
+
+    .profile-details {
+        gap: 12px 18px;
+        padding: 15px 18px;
+    }
+
+    .mobile-nav {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 30;
+        display: flex;
+        justify-content: space-around;
+        padding: 9px 4px calc(9px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--border);
+        background: rgba(2, 11, 20, 0.97);
+        backdrop-filter: blur(15px);
+    }
+
+    .mobile-nav a {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 600;
+    }
+
+    .mobile-nav a span {
+        font-size: 19px;
+        line-height: 1.3;
+    }
+
+    .mobile-nav a.active {
+        color: var(--yellow);
+    }
+
+    .page-footer {
+        margin-bottom: 75px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-mini > span:last-child {
+        display: none;
+    }
+
+    .page-heading h1 {
+        font-size: 32px;
+    }
+
+    .member-badge {
+        font-size: 10px;
+    }
+
+    .profile-cover {
+        min-height: 100px;
+    }
+
+    .profile-main {
+        gap: 10px;
+    }
+
+    .profile-identity {
+        width: calc(100% - 90px);
+        flex: none;
+    }
+
+    .profile-main .btn-outline {
+        width: 100%;
+    }
+
+    .form-grid,
+    .videos-grid,
+    .side-column {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-tip {
+        grid-column: auto;
+    }
+
+    .panel {
+        padding: 16px;
+        border-radius: 15px;
+    }
+
+    .section-heading {
+        gap: 8px;
+    }
+
+    .section-heading h2 {
+        font-size: 20px;
+    }
+
+    .upload-zone {
+        min-height: 215px;
+    }
+
+    .upload-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #selectedFileInfo {
+        max-width: 100%;
+    }
+
+    .upload-footer .btn-primary {
+        width: 100%;
+    }
+
+    .page-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+</style>
+<body>
+
+<header class="topbar">
+    <a href="accueil.html" class="brand">
+        <span class="brand-icon">V</span>
+        <span>VYBEO<span class="brand-dot">.</span></span>
+    </a>
+
+    <nav class="desktop-nav">
+        <a href="accueil.html">Accueil</a>
+        <a href="concours.html">Concours</a>
+        <a href="classement.html">Classement</a>
+        <a href="solde.html">Solde</a>
+        <a href="profil.html" class="active">Profil</a>
+    </nav>
+
+    <a href="#mon-profil" class="user-mini">
+        <span class="mini-avatar">T</span>
+        <span>Mon compte</span>
+    </a>
+</header>
+
+<main class="page-container">
+
+    <div class="page-heading">
+        <div>
+            <span class="eyebrow">ESPACE PERSONNEL</span>
+            <h1>Mon profil<span class="yellow-dot">.</span></h1>
+            <p>Gère ton compte, partage tes talents et suis tes performances.</p>
+        </div>
+        <span class="member-badge">✦ Membre VYBEO</span>
+    </div>
+
+    <!-- PROFIL PRINCIPAL -->
+    <section class="profile-card" id="mon-profil">
+        <div class="profile-cover">
+            <span class="cover-label">MON UNIVERS · VYBEO</span>
+            <div class="cover-decoration"></div>
+        </div>
+
+        <div class="profile-main">
+            <div class="avatar-wrap">
+                <div class="profile-avatar" id="profileAvatar">T</div>
+                <span class="online-indicator"></span>
+            </div>
+
+            <div class="profile-identity">
+                <span class="profile-status">● Profil créateur</span>
+                <h2 id="displayName">Tano Aka Christ Yoan</h2>
+                <p class="username">@moncompte · Membre depuis 2026</p>
+                <p class="profile-bio" id="displayBio">
+                    Passionné de créativité, de défis et de nouveaux talents.
+                </p>
+            </div>
+
+            <button class="btn-outline" id="editProfileBtn" type="button">
+                ✎ Modifier mon profil
+            </button>
+        </div>
+
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="detail-icon">⌖</span>
+                <span>Côte d'Ivoire</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">✦</span>
+                <span>Créateur de contenu</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">◷</span>
+                <span>Actif sur VYBEO</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULAIRE DE MODIFICATION -->
+    <section class="panel edit-panel" id="editProfilePanel" hidden>
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">PERSONNALISATION</span>
+                <h2>Modifier mon profil</h2>
+            </div>
+        </div>
+
+        <form id="profileForm" class="profile-form">
+            <div class="form-group">
+                <label for="fullName">Nom complet</label>
+                <input id="fullName" type="text" value="Tano Aka Christ Yoan" maxlength="80" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bio">Ma présentation</label>
+                <textarea id="bio" rows="3" maxlength="250" placeholder="Présente-toi à la communauté...">Passionné de créativité, de défis et de nouveaux talents.</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-outline" id="cancelEditBtn">Annuler</button>
+                <button type="submit" class="btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- STATISTIQUES -->
+    <section class="stats-grid">
+        <article class="stat-card">
+            <div class="stat-top">
+                <span class="stat-icon">▶</span>
+                <span class="stat-caption">Contenu</span>
+            </div>
+            <strong id="videoCount">0</strong>
+            <span class="stat-label">Vidéos publiées</span>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-top">
+                <span class="stat-icon">♛</span>
+                <span class="stat-caption">Compétition</span>
+            </div>
+            <strong>0</strong>
+            <span class="stat-label">Concours participés</span>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-top">
+                <span class="stat-icon">♥</span>
+                <span class="stat-caption">Communauté</span>
+            </div>
+            <strong id="viewCount">0</strong>
+            <span class="stat-label">Vues simulées</span>
+        </article>
+
+        <article class="stat-card highlight-stat">
+            <div class="stat-top">
+                <span class="stat-icon">✦</span>
+                <span class="stat-caption">Récompenses</span>
+            </div>
+            <strong>0 <small>pts</small></strong>
+            <span class="stat-label">Points cumulés</span>
+        </article>
+    </section>
+
+    <div class="content-grid">
+
+        <!-- COLONNE PRINCIPALE -->
+        <div class="main-column">
+
+            <!-- AJOUTER UNE VIDEO -->
+            <section class="panel upload-panel" id="ajouter-video">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">VYBEO STUDIO</span>
+                        <h2>Partager mon talent<span class="yellow-dot">.</span></h2>
+                        <p>Ajoute une vidéo et fais découvrir ton talent à la communauté.</p>
+                    </div>
+                    <div class="heading-icon">▶</div>
+                </div>
+
+                <form id="videoForm">
+                    <input type="file" id="videoFile" accept="video/*" hidden required>
+
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <div class="upload-symbol">↑</div>
+                            <h3>Dépose ta vidéo ici</h3>
+                            <p>Ou sélectionne un fichier sur ton appareil</p>
+                            <button type="button" class="btn-outline" id="chooseVideoBtn">
+                                Parcourir mes fichiers
+                            </button>
+                            <span class="file-hint">Formats vidéo compatibles · 100 Mo maximum dans cette démo</span>
+                        </div>
+
+                        <video id="videoPreview" controls playsinline hidden></video>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="videoTitle">Titre de la vidéo *</label>
+                            <input
+                                type="text"
+                                id="videoTitle"
+                                maxlength="100"
+                                placeholder="Ex. : Ma performance de danse"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="videoCategory">Catégorie *</label>
+                            <select id="videoCategory" required>
+                                <option value="">Choisir une catégorie</option>
+                                <option value="Chant">🎤 Chant</option>
+                                <option value="Danse">💃 Danse</option>
+                                <option value="Football">⚽ Football</option>
+                                <option value="Humour">😂 Humour</option>
+                                <option value="Autre talent">✨ Autre talent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="videoDescription">Description</label>
+                        <textarea
+                            id="videoDescription"
+                            rows="3"
+                            maxlength="500"
+                            placeholder="Décris ta performance, ton inspiration ou ton objectif..."
+                        ></textarea>
+                    </div>
+
+                    <div class="upload-footer">
+                        <span id="selectedFileInfo">Aucun fichier sélectionné</span>
+                        <button type="submit" class="btn-primary" id="publishVideoBtn">
+                            Publier ma vidéo <span>↗</span>
+                        </button>
+                    </div>
+
+                    <p class="form-message" id="videoMessage" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+
+            <!-- MES VIDEOS -->
+            <section class="panel videos-panel">
+                <div class="section-heading videos-heading">
+                    <div>
+                        <span class="eyebrow">MA GALERIE</span>
+                        <h2>Mes vidéos</h2>
+                        <p>Les vidéos ajoutées depuis cette session apparaîtront ici.</p>
+                    </div>
+                    <span class="count-badge" id="galleryCount">0 vidéo</span>
+                </div>
+
+                <div class="videos-grid" id="myVideos">
+                    <div class="empty-state" id="emptyVideos">
+                        <div class="empty-icon">▷</div>
+                        <h3>Aucune vidéo pour le moment</h3>
+                        <p>Ta première vidéo commence ici. Partage ce que tu sais faire !</p>
+                        <a href="#ajouter-video" class="text-link">Ajouter ma première vidéo ↗</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- COLONNE LATERALE -->
+        <aside class="side-column">
+
+            <section class="panel balance-panel">
+                <div class="side-panel-heading">
+                    <span class="side-icon">◈</span>
+                    <span>Mon portefeuille</span>
+                </div>
+
+                <p class="muted-text">Solde disponible</p>
+                <div class="balance-amount">0 <span>FCFA</span></div>
+
+                <div class="balance-divider"></div>
+
+                <div class="balance-row">
+                    <span>Points VYBEO</span>
+                    <strong>0 pts</strong>
+                </div>
+
+                <a href="solde.html" class="btn-primary full-width">Gérer mon solde ↗</a>
+            </section>
+
+            <section class="panel quick-panel">
+                <div class="side-panel-heading">
+                    <span class="side-icon">✦</span>
+                    <span>Accès rapides</span>
+                </div>
+
+                <a href="concours.html" class="quick-link">
+                    <span class="quick-link-icon">♛</span>
+                    <span><strong>Découvrir les concours</strong><small>Participe aux défis</small></span>
+                    <span class="link-arrow">↗</span>
+                </a>
+
+                <a href="classement.html" class="quick-link">
+                    <span class="quick-link-icon">▤</span>
+                    <span><strong>Voir le classement</strong><small>Découvre les talents</small></span>
+                    <span class="link-arrow">↗</span>
+                </a>
+
+                <a href="#ajouter-video" class="quick-link">
+                    <span class="quick-link-icon">＋</span>
+                    <span><strong>Ajouter une vidéo</strong><small>Publie ton talent</small></span>
+                    <span class="link-arrow">↗</span>
+                </a>
+            </section>
+
+            <section class="creator-tip">
+                <span class="tip-star">✦</span>
+                <h3>Conseil du créateur</h3>
+                <p>Choisis un titre clair, une vidéo bien cadrée et une bonne luminosité pour mieux présenter ton talent.</p>
+            </section>
+        </aside>
+    </div>
+
+    <footer class="page-footer">
+        <a href="accueil.html" class="brand footer-brand">
+            <span class="brand-icon">V</span>
+            <span>VYBEO<span class="brand-dot">.</span></span>
+        </a>
+        <span>© 2026 VYBEO · Révèle ton talent.</span>
+    </footer>
+
+</main>
+
+<!-- NAVIGATION MOBILE -->
+<nav class="mobile-nav">
+    <a href="accueil.html"><span></span>Accueil</a>
+    <a href="concours.html"><span></span>Concours</a>
+    <a href="classement.html"><span></span>Classement</a>
+    <a href="solde.html"><span></span>Solde</a>
+    <a href="profil.html" class="active"><span></span>Profil</a>
+</nav>
+
+<script src="profil.js">
+    
+document.addEventListener("DOMContentLoaded", () => {
+    // =========================
+    // MODIFICATION DU PROFIL
+    // =========================
+
+    const editProfileBtn = document.getElementById("editProfileBtn");
+    const editProfilePanel = document.getElementById("editProfilePanel");
+    const profileForm = document.getElementById("profileForm");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+    const fullName = document.getElementById("fullName");
+    const bioInput = document.getElementById("bio");
+    const displayName = document.getElementById("displayName");
+    const displayBio = document.getElementById("displayBio");
+    const profileAvatar = document.getElementById("profileAvatar");
+
+    editProfileBtn.addEventListener("click", () => {
+        editProfilePanel.hidden = !editProfilePanel.hidden;
+
+        if (!editProfilePanel.hidden) {
+            editProfilePanel.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+    });
+
+    cancelEditBtn.addEventListener("click", () => {
+        fullName.value = displayName.textContent;
+        bioInput.value = displayBio.textContent;
+        editProfilePanel.hidden = true;
+    });
+
+    profileForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = fullName.value.trim();
+        const bio = bioInput.value.trim();
+
+        if (!name) {
+            fullName.focus();
+            return;
+        }
+
+        displayName.textContent = name;
+        displayBio.textContent = bio || "Bienvenue sur mon profil VYBEO.";
+        profileAvatar.textContent = name.charAt(0).toUpperCase();
+
+        editProfilePanel.hidden = true;
+    });
+
+    // =========================
+    // AJOUT ET APERCU VIDEO
+    // =========================
+
+    const videoForm = document.getElementById("videoForm");
+    const videoFile = document.getElementById("videoFile");
+    const chooseVideoBtn = document.getElementById("chooseVideoBtn");
+    const uploadZone = document.getElementById("uploadZone");
+    const uploadPlaceholder = document.getElementById("uploadPlaceholder");
+    const videoPreview = document.getElementById("videoPreview");
+    const selectedFileInfo = document.getElementById("selectedFileInfo");
+    const videoMessage = document.getElementById("videoMessage");
+    const myVideos = document.getElementById("myVideos");
+    const videoCount = document.getElementById("videoCount");
+    const galleryCount = document.getElementById("galleryCount");
+    const viewCount = document.getElementById("viewCount");
+
+    const MAX_VIDEO_SIZE = 100 * 1024 * 1024;
+
+    let selectedVideoUrl = null;
+    let uploadedVideos = [];
+
+    chooseVideoBtn.addEventListener("click", () => {
+        videoFile.click();
+    });
+
+    videoFile.addEventListener("change", () => {
+        const file = videoFile.files[0];
+
+        if (file) {
+            selectVideo(file);
+        }
+    });
+
+    function selectVideo(file) {
+        if (!file.type.startsWith("video/")) {
+            showMessage("Sélectionne un fichier vidéo valide.", true);
+            videoFile.value = "";
+            return;
+        }
+
+        if (file.size > MAX_VIDEO_SIZE) {
+            showMessage("La vidéo dépasse la limite de 100 Mo.", true);
+            videoFile.value = "";
+            return;
+        }
+
+        clearSelectedVideoUrl();
+
+        selectedVideoUrl = URL.createObjectURL(file);
+        videoPreview.src = selectedVideoUrl;
+        videoPreview.hidden = false;
+        uploadPlaceholder.hidden = true;
+
+        selectedFileInfo.textContent =
+            `${file.name} · ${(file.size / (1024 * 1024)).toFixed(1)} Mo`;
+
+        showMessage("");
+    }
+
+    // Glisser-déposer d'une vidéo
+    uploadZone.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        uploadZone.classList.add("drag-over");
+    });
+
+    uploadZone.addEventListener("dragleave", () => {
+        uploadZone.classList.remove("drag-over");
+    });
+
+    uploadZone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        uploadZone.classList.remove("drag-over");
+
+        const file = event.dataTransfer.files[0];
+
+        if (!file) return;
+
+        if (typeof DataTransfer !== "undefined") {
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            videoFile.files = transfer.files;
+        }
+
+        selectVideo(file);
+    });
+
+    // Publication dans la galerie de cette session
+    videoForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const file = videoFile.files[0];
+        const title = document.getElementById("videoTitle").value.trim();
+        const category = document.getElementById("videoCategory").value;
+        const description =
+            document.getElementById("videoDescription").value.trim();
+
+        if (!file || !selectedVideoUrl) {
+            showMessage("Choisis d'abord une vidéo.", true);
+            return;
+        }
+
+        if (!title || !category) {
+            showMessage("Renseigne le titre et la catégorie.", true);
+            return;
+        }
+
+        uploadedVideos.unshift({
+            id: Date.now() + Math.random(),
+            title,
+            category,
+            description,
+            url: selectedVideoUrl,
+            size: file.size
+        });
+
+        // La galerie reprend possession de cette URL.
+        selectedVideoUrl = null;
+
+        renderVideos();
+        videoForm.reset();
+
+        videoPreview.pause();
+        videoPreview.removeAttribute("src");
+        videoPreview.load();
+        videoPreview.hidden = true;
+        uploadPlaceholder.hidden = false;
+
+        selectedFileInfo.textContent = "Aucun fichier sélectionné";
+
+        showMessage("Vidéo ajoutée à ta galerie pour cette session.");
+        document.getElementById("videoTitle").focus();
+    });
+
+    // =========================
+    // AFFICHAGE DE LA GALERIE
+    // =========================
+
+    function renderVideos() {
+        myVideos.replaceChildren();
+
+        const total = uploadedVideos.length;
+
+        videoCount.textContent = total;
+        galleryCount.textContent =
+            `${total} vidéo${total > 1 ? "s" : ""}`;
+
+        viewCount.textContent = "0";
+
+        if (total === 0) {
+            const empty = document.createElement("div");
+            empty.className = "empty-state";
+
+            const icon = document.createElement("div");
+            icon.className = "empty-icon";
+            icon.textContent = "▷";
+
+            const title = document.createElement("h3");
+            title.textContent = "Aucune vidéo pour le moment";
+
+            const text = document.createElement("p");
+            text.textContent =
+                "Ta première vidéo commence ici. Partage ce que tu sais faire !";
+
+            const link = document.createElement("a");
+            link.href = "#ajouter-video";
+            link.className = "text-link";
+            link.textContent = "Ajouter ma première vidéo ↗";
+
+            empty.append(icon, title, text, link);
+            myVideos.appendChild(empty);
+            return;
+        }
+
+        uploadedVideos.forEach((video) => {
+            const card = document.createElement("article");
+            card.className = "my-video-card";
+
+            const player = document.createElement("video");
+            player.src = video.url;
+            player.controls = true;
+            player.playsInline = true;
+            player.preload = "metadata";
+
+            const content = document.createElement("div");
+            content.className = "my-video-content";
+
+            const category = document.createElement("span");
+            category.className = "video-category";
+            category.textContent = video.category;
+
+            const title = document.createElement("h3");
+            title.textContent = video.title;
+
+            const description = document.createElement("p");
+            description.textContent =
+                video.description || "Aucune description.";
+
+            const actions = document.createElement("div");
+            actions.className = "video-card-actions";
+
+            const size = document.createElement("span");
+            size.className = "video-size";
+            size.textContent =
+                `${(video.size / (1024 * 1024)).toFixed(1)} Mo`;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "delete-video";
+            deleteButton.textContent = "Supprimer";
+            deleteButton.setAttribute(
+                "aria-label",
+                `Supprimer la vidéo ${video.title}`
+            );
+
+            deleteButton.addEventListener("click", () => {
+                const confirmed = window.confirm(
+                    `Supprimer la vidéo « ${video.title} » ?`
+                );
+
+                if (!confirmed) return;
+
+                URL.revokeObjectURL(video.url);
+
+                uploadedVideos = uploadedVideos.filter(
+                    (item) => item.id !== video.id
+                );
+
+                renderVideos();
+            });
+
+            actions.append(size, deleteButton);
+            content.append(category, title, description, actions);
+            card.append(player, content);
+            myVideos.appendChild(card);
+        });
+    }
+
+    // =========================
+    // UTILITAIRES
+    // =========================
+
+    function showMessage(message, isError = false) {
+        videoMessage.textContent = message;
+        videoMessage.classList.toggle("error", isError);
+    }
+
+    function clearSelectedVideoUrl() {
+        if (selectedVideoUrl) {
+            URL.revokeObjectURL(selectedVideoUrl);
+            selectedVideoUrl = null;
+        }
+    }
+
+    window.addEventListener("beforeunload", () => {
+        clearSelectedVideoUrl();
+
+        uploadedVideos.forEach((video) => {
+            URL.revokeObjectURL(video.url);
+        });
+    });
+
+    renderVideos();
+});
+
+</script>
+</body>
+</html>

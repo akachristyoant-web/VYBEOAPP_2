@@ -1,0 +1,926 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VYBEO | Découvre les concours</title>
+  <link rel="stylesheet" href="concours.css">
+  <script src="concours.js" defer></script>
+</head>
+
+<!-- style de la page -->
+
+<style>
+    
+/* =========================================
+   VYBEO — PAGE CONCOURS
+   Palette inspirée de la maquette officielle
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --vybeo-bg: #061522;
+  --vybeo-bg-deep: #020b14;
+  --vybeo-surface: #0b2031;
+  --vybeo-card: #10283b;
+  --vybeo-card-hover: #16364c;
+
+  --vybeo-gold: #ffbd16;
+  --vybeo-gold-light: #ffd95b;
+  --vybeo-gold-dark: #d99400;
+
+  --vybeo-white: #ffffff;
+  --vybeo-text: #f4f7fb;
+  --vybeo-muted: #a9b8c8;
+
+  --vybeo-border: #294054;
+  --vybeo-success: #52d49a;
+
+  --radius-card: 16px;
+  --radius-button: 10px;
+}
+
+/* ===== Réinitialisation ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--vybeo-bg);
+  color: var(--vybeo-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ===== Barre de navigation ===== */
+
+.navbar {
+  min-height: 78px;
+  padding: 14px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+
+  background: rgba(2, 11, 20, 0.97);
+  border-bottom: 1px solid var(--vybeo-border);
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
+}
+
+.logo {
+  color: var(--vybeo-white);
+  font-size: 29px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--vybeo-gold);
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar nav a {
+  color: var(--vybeo-muted);
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+  color: var(--vybeo-gold);
+}
+
+.btn-nav {
+  padding: 11px 19px;
+  border-radius: var(--radius-button);
+  background: var(--vybeo-gold);
+  color: var(--vybeo-bg-deep);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: 0.25s ease;
+}
+
+.btn-nav:hover {
+  background: var(--vybeo-gold-light);
+  transform: translateY(-2px);
+}
+
+/* ===== Bannière principale ===== */
+
+.hero {
+  min-height: 440px;
+  padding: 75px 8%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 11, 20, 0.98) 0%,
+      rgba(6, 21, 34, 0.92) 42%,
+      rgba(6, 21, 34, 0.35) 100%
+    ),
+    url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1800&q=85")
+    center 45% / cover no-repeat;
+
+  border-bottom: 1px solid var(--vybeo-border);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 660px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--vybeo-gold);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.hero h1 {
+  margin: 18px 0;
+  color: var(--vybeo-white);
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  font-weight: 900;
+}
+
+.hero h1 span {
+  color: var(--vybeo-gold);
+}
+
+.hero p {
+  max-width: 530px;
+  margin-bottom: 28px;
+  color: #d1dce8;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* ===== Boutons principaux ===== */
+
+.btn-primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 24px;
+  border-radius: 30px;
+  border: 1px solid var(--vybeo-gold);
+
+  background: var(--vybeo-gold);
+  color: var(--vybeo-bg-deep);
+
+  font-size: 13px;
+  font-weight: 800;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: var(--vybeo-gold-light);
+  border-color: var(--vybeo-gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 189, 22, 0.2);
+}
+
+/* ===== Catégories ===== */
+
+.categories {
+  padding: 45px 8% 35px;
+}
+
+.categories h2,
+.section-heading h2 {
+  color: var(--vybeo-white);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.category-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.category {
+  padding: 11px 19px;
+  border-radius: 30px;
+
+  color: var(--vybeo-muted);
+  background: var(--vybeo-surface);
+  border: 1px solid var(--vybeo-border);
+
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.category:hover {
+  color: var(--vybeo-gold);
+  border-color: var(--vybeo-gold-dark);
+  background: var(--vybeo-card);
+}
+
+.category.active {
+  color: var(--vybeo-bg-deep);
+  background: var(--vybeo-gold);
+  border-color: var(--vybeo-gold);
+}
+
+/* ===== Section des concours ===== */
+
+.contest-section {
+  padding: 20px 8% 85px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 28px;
+}
+
+.section-heading p {
+  margin-top: 5px;
+  color: var(--vybeo-muted);
+  font-size: 13px;
+}
+
+/* ===== Barre de recherche ===== */
+
+#search {
+  width: 300px;
+  max-width: 100%;
+  padding: 13px 17px;
+
+  background: var(--vybeo-surface);
+  color: var(--vybeo-white);
+
+  border: 1px solid var(--vybeo-border);
+  border-radius: 30px;
+  outline: none;
+
+  font-size: 13px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+#search::placeholder {
+  color: #91a3b5;
+}
+
+#search:focus {
+  border-color: var(--vybeo-gold);
+  box-shadow: 0 0 0 3px rgba(255, 189, 22, 0.1);
+}
+
+/* ===== Grille des concours ===== */
+
+.contest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+}
+
+/* ===== Carte individuelle ===== */
+
+.contest-card {
+  min-width: 0;
+  overflow: hidden;
+
+  background: var(--vybeo-card);
+  border: 1px solid var(--vybeo-border);
+  border-radius: var(--radius-card);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.14);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.contest-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 189, 22, 0.65);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Images ===== */
+
+.card-image {
+  height: 245px;
+  position: relative;
+  overflow: hidden;
+  background: var(--vybeo-surface);
+}
+
+.card-image::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(2, 11, 20, 0.3)
+  );
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.5s ease;
+}
+
+.contest-card:hover .card-image img {
+  transform: scale(1.06);
+}
+
+/* ===== Étiquette de catégorie ===== */
+
+.tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+
+  padding: 7px 12px;
+  border-radius: 20px;
+
+  background: rgba(2, 11, 20, 0.88);
+  color: var(--vybeo-gold);
+
+  border: 1px solid rgba(255, 189, 22, 0.45);
+
+  font-size: 11px;
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+}
+
+/* ===== Informations du concours ===== */
+
+.card-content {
+  padding: 23px;
+}
+
+.status {
+  display: inline-block;
+  color: var(--vybeo-success);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.card-content h3 {
+  margin: 10px 0;
+  color: var(--vybeo-white);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.card-content > p {
+  min-height: 45px;
+  color: var(--vybeo-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ===== Pied de carte ===== */
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-top: 20px;
+  padding-top: 17px;
+
+  border-top: 1px solid var(--vybeo-border);
+}
+
+.card-footer > span {
+  color: var(--vybeo-gold-light);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.btn-card {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 11px 16px;
+  border-radius: 30px;
+
+  background: var(--vybeo-gold);
+  color: var(--vybeo-bg-deep);
+
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+
+  transition: all 0.25s ease;
+}
+
+.btn-card:hover {
+  background: var(--vybeo-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 189, 22, 0.15);
+}
+
+/* ===== Aucun résultat ===== */
+
+#empty-message {
+  margin-top: 35px;
+  padding: 25px;
+
+  color: var(--vybeo-muted);
+  text-align: center;
+
+  background: var(--vybeo-surface);
+  border: 1px dashed var(--vybeo-border);
+  border-radius: var(--radius-card);
+}
+
+/* ===== Pied de page ===== */
+
+footer {
+  padding: 35px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+
+  background: var(--vybeo-bg-deep);
+  border-top: 1px solid var(--vybeo-border);
+}
+
+footer .logo {
+  font-size: 25px;
+}
+
+footer p {
+  color: var(--vybeo-muted);
+  font-size: 12px;
+}
+
+/* ===== Tablettes ===== */
+
+@media (max-width: 900px) {
+  .navbar {
+    padding-left: 5%;
+    padding-right: 5%;
+    gap: 15px;
+  }
+
+  .navbar nav {
+    gap: 15px;
+  }
+
+  .navbar nav a {
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 65px 6%;
+  }
+
+  .categories,
+  .contest-section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .contest-grid {
+    gap: 18px;
+  }
+
+  .card-content {
+    padding: 18px;
+  }
+}
+
+/* ===== Mobiles ===== */
+
+@media (max-width: 600px) {
+  .navbar {
+    position: relative;
+    padding: 15px 5%;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+
+  .navbar nav {
+    order: 3;
+    width: 100%;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 9px 0 4px;
+    scrollbar-width: none;
+  }
+
+  .navbar nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navbar nav a {
+    white-space: nowrap;
+  }
+
+  .btn-nav {
+    padding: 10px 13px;
+  }
+
+  .hero {
+    min-height: 390px;
+    padding: 55px 6%;
+
+    background-position: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 9vw, 46px);
+    letter-spacing: -1.2px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .categories {
+    padding: 35px 5% 25px;
+  }
+
+  .categories h2,
+  .section-heading h2 {
+    font-size: 23px;
+  }
+
+  .category-list {
+    gap: 9px;
+  }
+
+  .category {
+    padding: 10px 14px;
+    font-size: 11px;
+  }
+
+  .contest-section {
+    padding: 20px 5% 55px;
+  }
+
+  .section-heading {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 17px;
+  }
+
+  #search {
+    width: 100%;
+  }
+
+  .contest-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-image {
+    height: 220px;
+  }
+
+  .card-content h3 {
+    font-size: 20px;
+  }
+
+  .card-footer {
+    flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 30px 5%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ===== Accessibilité : animations réduites ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+
+</style>
+
+<body>
+  <!-- en-tête -->
+  <header class="navbar">
+    <a href="accueil.html" class="logo">VYBEO<span>.</span></a>
+
+    <nav>
+      <a href="accueil.html">Accueil</a>
+      <a href="concours.html" class="active">Concours</a>
+      <a href="classement.html">Classement</a>
+      <a href="profile.html">Mon profil</a>
+    </nav>
+
+    <a href="inscription.html" class="btn-nav">S'inscrire</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">TON TALENT, TA SCÈNE</span>
+        <h1>Le prochain talent,<br>
+          <span>c'est peut-être toi.</span>
+        </h1>
+        <p>
+          Participe aux concours VYBEO, partage ton talent
+          et fais-toi découvrir par toute une communauté.
+        </p>
+        <a href="#liste-concours" class="btn-primary">
+          Découvrir les concours →
+        </a>
+      </div>
+    </section>
+
+    <section class="categories">
+      <h2>Explore les catégories</h2>
+
+      <div class="category-list">
+        <button class="category active" data-filter="Tous">
+          Tous les concours
+        </button>
+        <button class="category" data-filter="Football">
+          Football
+        </button>
+        <button class="category" data-filter="Danse">
+           Danse
+        </button>
+        <button class="category" data-filter="Humour">
+          Humour
+        </button>
+        <button class="category" data-filter="Chant">
+          🎤 Chant
+        </button>
+      </div>
+    </section>
+
+    <section class="contest-section" id="liste-concours">
+      <div class="section-heading">
+        <div>
+          <h2>Concours disponibles</h2>
+          <p>Choisis ton défi et révèle ton potentiel.</p>
+        </div>
+
+        <input
+          type="search"
+          id="search"
+          placeholder="Rechercher un concours..."
+          aria-label="Rechercher un concours"
+        >
+      </div>
+
+      <div class="contest-grid" id="contest-grid">
+
+        <article class="contest-card" data-category="Football"
+          data-title="Challenge Football">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80"
+              alt="Terrain de football"
+            >
+            <span class="tag"> Football</span>
+          </div>
+          <div class="card-content">
+            <span class="status">● Inscriptions ouvertes</span>
+            <h3>Challenge Football</h3>
+            <p>Montre tes dribbles, tes gestes techniques et ton talent.</p>
+            <div class="card-footer">
+              <span>🏆 Trophée du talent</span>
+              <a href="inscription.html?concours=football"
+                class="btn-card">Participer →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="contest-card" data-category="Danse"
+          data-title="Battle de Danse">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=900&q=80"
+              alt="Spectacle et performance sur scène"
+            >
+            <span class="tag">Danse</span>
+          </div>
+          <div class="card-content">
+            <span class="status">● Inscriptions ouvertes</span>
+            <h3>Battle de Danse</h3>
+            <p>Enflamme la scène avec ton style et ta créativité.</p>
+            <div class="card-footer">
+              <span>🏆 Trophée du talent</span>
+              <a href="inscription.html?concours=danse"
+                class="btn-card">Participer →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="contest-card" data-category="Humour"
+          data-title="Scène du Rire">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=900&q=80"
+              alt="Spectacle sur scène"
+            >
+            <span class="tag">Humour</span>
+          </div>
+          <div class="card-content">
+            <span class="status">● Inscriptions ouvertes</span>
+            <h3>Scène du Rire</h3>
+            <p>Fais rire le public avec tes meilleures blagues.</p>
+            <div class="card-footer">
+              <span>🏆 Trophée du talent</span>
+              <a href="inscription.html?concours=humour"
+                class="btn-card">Participer →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="contest-card" data-category="Chant"
+          data-title="Nouvelle Voix">
+          <div class="card-image">
+            <img
+              src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80"
+              alt="Chanteur avec un microphone"
+            >
+            <span class="tag">🎤 Chant</span>
+          </div>
+          <div class="card-content">
+            <span class="status">● Inscriptions ouvertes</span>
+            <h3>Nouvelle Voix</h3>
+            <p>Fais entendre ta voix et partage ta passion musicale.</p>
+            <div class="card-footer">
+              <span>🏆 Trophée du talent</span>
+              <a href="inscription.html?concours=chant"
+                class="btn-card">Participer →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <p id="empty-message" hidden>
+        Aucun concours ne correspond à ta recherche.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="accueil.html" class="logo">VYBEO<span>.</span></a>
+    <p>Révèle ton talent. Inspire le monde.</p>
+    <p>© 2026 VYBEO — Tous droits réservés.</p>
+  </footer>
+</body>
+<!-- fichier script.js -->
+<script src="concours.js">
+
+const categoryButtons = document.querySelectorAll(".category");
+const searchInput = document.getElementById("search");
+const contestCards = document.querySelectorAll(".contest-card");
+const emptyMessage = document.getElementById("empty-message");
+
+let selectedCategory = "Tous";
+
+function filterContests() {
+  const searchText = searchInput.value
+    .trim()
+    .toLowerCase();
+
+  let visibleCount = 0;
+
+  contestCards.forEach((card) => {
+    const category = card.dataset.category;
+    const title = card.dataset.title.toLowerCase();
+    const description = card.querySelector(
+      ".card-content > p"
+    ).textContent.toLowerCase();
+
+    const matchesCategory =
+      selectedCategory === "Tous" ||
+      category === selectedCategory;
+
+    const matchesSearch =
+      title.includes(searchText) ||
+      description.includes(searchText) ||
+      category.toLowerCase().includes(searchText);
+
+    const visible = matchesCategory && matchesSearch;
+
+    card.hidden = !visible;
+
+    if (visible) {
+      visibleCount++;
+    }
+  });
+
+  emptyMessage.hidden = visibleCount !== 0;
+}
+
+categoryButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    selectedCategory = button.dataset.filter;
+
+    categoryButtons.forEach((item) => {
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    filterContests();
+  });
+});
+
+searchInput.addEventListener("input", filterContests);
+
+// Afficher correctement les cartes filtrées
+contestCards.forEach((card) => {
+  card.hidden = false;
+});
+
+filterContests();
+
+</script>
+</html>
+
+
